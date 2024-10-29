@@ -1,9 +1,12 @@
 package com.example.myapplicationtest1
 
+import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -30,6 +34,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplicationtest1.ui.theme.Darkgreen
+import com.example.myapplicationtest1.ui.theme.Lightgreen
+import java.nio.file.WatchEvent
 
 @Composable
 fun LogoHome() {
@@ -74,13 +80,21 @@ fun Logotrash(){
 }
 
 @Composable
+fun kointrash(){
+    Image(
+        painter = painterResource(id = R.drawable.koin),
+        contentDescription = "koin trash",
+        modifier = Modifier.width(30.dp).height(30.dp),
+        contentScale = ContentScale.FillHeight
+    )
+}
+
+@Composable
 fun HomePage(){
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+            .padding(10.dp),
     )
     {
         Row (
@@ -133,10 +147,147 @@ fun HomePage(){
                 ) {
                     Text("PANGGIL PETUGAS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 }
+
             }
         }
-        Row {
-            
+//
+        Spacer(modifier = Modifier.height(15.dp))
+//        Button Payment dan Points
+        Row (
+            modifier = Modifier.fillMaxWidth().padding(0.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Lightgreen),
+
+            )
+            {
+                Column (
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(23.dp)
+
+                ) {
+                    Row (
+                        verticalAlignment = Alignment.CenterVertically,
+                    ){
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .background(Color(0xFF4CAF50), shape = CircleShape),
+                            contentAlignment = Alignment.Center
+                        ){
+                            Text(text = "Rp", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = "DANA",
+                            color = Color(0xFF4CAF50),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = ">",
+                            color = Color(0xFF4CAF50),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Row (
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.padding(10.dp)
+                    ) {
+                        Text(
+                            text = "O",
+                            color = Color(0xFF4CAF50),
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(start = 7.dp)
+                        )
+                        Spacer(modifier = Modifier.width(27.dp))
+                        Text(
+                            text = "Rupiah",
+                            color = Color(0xFF4CAF50),
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
+
+            }
+//            Button Points
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(Darkgreen),
+
+            )
+            {
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier.padding(23.dp),
+
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .background(color = Color.White, shape = CircleShape),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            kointrash()
+                        }
+                        Spacer(modifier = Modifier.width(10.dp))
+                        Text(
+                            text = "Points",
+                            color = Color.White,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier.padding(10.dp)
+                    ) {
+                        Text(
+                            text = "O",
+                            color = Color.White,
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Normal,
+                            modifier = Modifier.padding(start = 7.dp)
+                        )
+                        Spacer(modifier = Modifier.width(27.dp))
+                        Text(
+                            text = "Points",
+                            color = Color.White,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                }
+            }
+        }
+
+//        Rekomendasi
+        Spacer(modifier = Modifier.height(10.dp))
+        Column {
+            Row {
+                Text("Rekomendasi Untukmu", fontWeight = FontWeight.ExtraBold, fontSize = 18.sp)
+                Button(
+                    onClick = {},
+                ) {
+                    Text("")
+                }
+            }
         }
     }
 }
