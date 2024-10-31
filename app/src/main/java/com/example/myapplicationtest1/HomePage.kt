@@ -1,6 +1,5 @@
 package com.example.myapplicationtest1
 
-import android.widget.Space
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,14 +9,17 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.absoluteOffset
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -31,11 +33,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.zIndex
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 import com.example.myapplicationtest1.ui.theme.Lightgreen
-import java.nio.file.WatchEvent
+
+
+
+@Composable
+fun ImgSampah(){
+    Image(
+        painter = painterResource(id = R.drawable.carausel),
+        contentDescription = "Logo trash",
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp),
+        contentScale = ContentScale.FillWidth
+    )
+}
 
 @Composable
 fun LogoHome() {
@@ -55,7 +73,9 @@ fun LogoAchieve() {
     Image(
         painter = painterResource(id = R.drawable.achieve),
         contentDescription = "Logo Achieve",
-        modifier = Modifier.width(40.dp).height(40.dp),
+        modifier = Modifier
+            .width(40.dp)
+            .height(40.dp),
         contentScale = ContentScale.FillHeight
 
     )
@@ -65,7 +85,9 @@ fun LogoNotify() {
     Image(
         painter = painterResource(id = R.drawable.notif),
         contentDescription = "Logo Notify",
-        modifier = Modifier.width(40.dp).height(40.dp),
+        modifier = Modifier
+            .width(40.dp)
+            .height(40.dp),
         contentScale = ContentScale.FillHeight
     )
 }
@@ -74,35 +96,56 @@ fun Logotrash(){
     Image(
         painter = painterResource(id = R.drawable.trash),
         contentDescription = "Logo trash",
-        modifier = Modifier.width(120.dp).height(120.dp),
+        modifier = Modifier
+            .width(120.dp)
+            .height(120.dp),
         contentScale = ContentScale.FillHeight
     )
 }
 
 @Composable
-fun kointrash(){
+fun Kointrash(){
     Image(
         painter = painterResource(id = R.drawable.koin),
         contentDescription = "koin trash",
-        modifier = Modifier.width(30.dp).height(30.dp),
+        modifier = Modifier
+            .width(30.dp)
+            .height(30.dp),
+        contentScale = ContentScale.FillHeight
+    )
+}
+
+@Composable
+fun BuangSampah() {
+    Image(
+        painter = painterResource(id = R.drawable.buangsampah),
+        contentDescription = "buang sampah",
+        modifier = Modifier
+            .size(210.dp)
+            .absoluteOffset(x = 8.dp, y = -25.dp)
+            .zIndex(1f), // Menggunakan size untuk ukuran yang sama
         contentScale = ContentScale.FillHeight
     )
 }
 
 @Composable
 fun HomePage(){
+    val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
+            .verticalScroll(scrollState)
+            .fillMaxWidth()
+//            .padding(10.dp),
     )
     {
-        Row (
-            modifier = Modifier.fillMaxWidth().padding(0.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
 
-        ){
+        ) {
             LogoHome()
             Text("Clear GO", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.width(130.dp))
@@ -111,23 +154,26 @@ fun HomePage(){
                 LogoNotify()
             }
         }
-        Card (
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(10.dp)
+
                 .border(
                     BorderStroke(1.dp, Color.Black),
-                    shape = RoundedCornerShape(10.dp)
+                    shape = RoundedCornerShape(10.dp),
+                    
                 ),
             shape = RoundedCornerShape(10.dp),
             colors = CardDefaults.cardColors(Color(0xFFf5f5f5)),
             elevation = CardDefaults.cardElevation(10.dp)
-        ){
+        ) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row {
-                    Column (
+                    Column(
                         Modifier.padding(top = 20.dp),
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Center
@@ -143,9 +189,16 @@ fun HomePage(){
                     onClick = { },
                     colors = ButtonDefaults.buttonColors(containerColor = Darkgreen),
                     shape = RoundedCornerShape(10.dp),
-                    modifier = Modifier.fillMaxWidth().height(50.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
                 ) {
-                    Text("PANGGIL PETUGAS", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                    Text(
+                        "PANGGIL PETUGAS",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
                 }
 
             }
@@ -153,8 +206,10 @@ fun HomePage(){
 //
         Spacer(modifier = Modifier.height(15.dp))
 //        Button Payment dan Points
-        Row (
-            modifier = Modifier.fillMaxWidth().padding(0.dp),
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -163,24 +218,29 @@ fun HomePage(){
                     .clip(RoundedCornerShape(10.dp))
                     .background(Lightgreen),
 
-            )
+                )
             {
-                Column (
+                Column(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.padding(23.dp)
+                    modifier = Modifier.padding(20.dp)
 
                 ) {
-                    Row (
+                    Row(
                         verticalAlignment = Alignment.CenterVertically,
-                    ){
+                    ) {
                         Box(
                             modifier = Modifier
                                 .size(50.dp)
                                 .background(Color(0xFF4CAF50), shape = CircleShape),
                             contentAlignment = Alignment.Center
-                        ){
-                            Text(text = "Rp", color = Color.White, fontWeight = FontWeight.Bold, fontSize = 20.sp)
+                        ) {
+                            Text(
+                                text = "Rp",
+                                color = Color.White,
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp
+                            )
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
@@ -197,7 +257,7 @@ fun HomePage(){
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Row (
+                    Row(
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.End,
                         modifier = Modifier.padding(10.dp)
@@ -226,14 +286,14 @@ fun HomePage(){
                     .clip(RoundedCornerShape(10.dp))
                     .background(Darkgreen),
 
-            )
+                )
             {
                 Column(
                     horizontalAlignment = Alignment.Start,
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier.padding(23.dp),
+                    modifier = Modifier.padding(20.dp),
 
-                ) {
+                    ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
@@ -243,7 +303,7 @@ fun HomePage(){
                                 .background(color = Color.White, shape = CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
-                            kointrash()
+                            Kointrash()
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
@@ -279,15 +339,124 @@ fun HomePage(){
 
 //        Rekomendasi
         Spacer(modifier = Modifier.height(10.dp))
-        Column {
-            Row {
-                Text("Rekomendasi Untukmu", fontWeight = FontWeight.ExtraBold, fontSize = 18.sp)
-                Button(
-                    onClick = {},
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 10.dp, end = 10.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(
+                    text = "Rekomendasi Untukmu",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp
+                )
+                Text(
+                    text = "Selengkapnya",
+                    color = Color.Green,
+                    fontSize = 14.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(Color(0xFF00C853), shape = RoundedCornerShape(8.dp))
+                    .padding(top = 10.dp, start = 10.dp, end = 10.dp)
+            ) {
+                Row(
+
                 ) {
-                    Text("")
+                    Column(
+                        horizontalAlignment = Alignment.Start,
+                    ) {
+                        Text(
+                            text = "Hadiah dari Clear GO",
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.White,
+                            textAlign = TextAlign.Center
+                        )
+                        Row {
+                            Column {
+                                Text(
+                                    "Untuk Pelanggan", fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center
+                                )
+                                Text(
+                                    "Setia", fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center
+                                )
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Text(
+                                    text = "RP 2500 Point",
+                                    fontSize = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color(0xFFFFEB3B)
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                Text(
+                                    text = "Untuk Mendapatkan Gratis",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Text(
+                                    text = "Ongkir",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Button(
+                                    onClick = { /* Action on click */ },
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = Color.White
+                                    ),
+                                    modifier = Modifier
+                                        .width(130.dp)
+                                        .absoluteOffset(x = 50.dp),
+                                    shape = RoundedCornerShape(10.dp)
+                                ) {
+                                    Text(
+                                        text = "TUKARKAN",
+                                        color = Color.Black,
+                                        fontWeight = FontWeight.Bold,
+                                        fontSize = 15.sp
+                                    )
+                                }
+                            }
+                            BuangSampah()
+                        }
+                    }
                 }
             }
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Column (
+                modifier = Modifier.fillMaxHeight().fillMaxWidth()
+            ) {
+                ImgSampah()
+            }
         }
+        BotNavbar()
     }
 }
+@Preview(showBackground = true)
+@Composable
+fun PreviewHomepage(){
+    HomePage()
+}
+
+

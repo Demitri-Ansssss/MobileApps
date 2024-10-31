@@ -39,6 +39,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.myapplicationtest1.ui.theme.Darkgreen
@@ -132,6 +133,7 @@ fun ImageWithClip() {
                 checked = checked,
                 onCheckedChange = { checked = it }
             )
+
             Text(
                 "Accept Term and Condition"
             )
@@ -142,14 +144,14 @@ fun ImageWithClip() {
                 .fillMaxWidth(),
             onClick = {},
             shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Darkgreen) // Gunakan ButtonDefaults.buttonColors()
+            colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
         ) {
             Text(
                 "Create New Account",
                 modifier = Modifier.padding(10.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.White // Gunakan warna teks putih agar kontras dengan warna background
+                color = Color.White
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
@@ -183,3 +185,9 @@ fun ImageWithClip() {
     }
 
  }
+
+@Preview(showBackground = true)
+@Composable
+fun PreviewRegister() {
+    RegisterPage()
+}

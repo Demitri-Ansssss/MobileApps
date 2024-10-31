@@ -9,6 +9,7 @@ class MainActivity : ComponentActivity() {
         setContent() {
 //            RegisterPage()
         HomePage()
+//            MenuSampah()
         }
     }
 }
