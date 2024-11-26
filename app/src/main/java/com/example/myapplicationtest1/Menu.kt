@@ -19,6 +19,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 
 
@@ -398,12 +400,12 @@ fun PilihNavigation() {
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun MenuSampah() {
+fun MenuSampah(navController: NavController) {
     Scaffold {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-//                .background(color = Color.Red)
+                .background(color = Color.White)
         ) {
             Row(
                 modifier = Modifier
@@ -412,7 +414,7 @@ fun MenuSampah() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Button(
-                    onClick = {},
+                    onClick = {navController.popBackStack()},
                     modifier = Modifier.width(200.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color.White)
                 ) {
@@ -437,5 +439,6 @@ fun MenuSampah() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewMenu() {
-    MenuSampah()
+    val navController = rememberNavController()
+    MenuSampah(navController)
 }

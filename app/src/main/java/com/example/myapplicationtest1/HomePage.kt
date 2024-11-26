@@ -38,6 +38,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 import com.example.myapplicationtest1.ui.theme.Lightgreen
 
@@ -129,12 +131,13 @@ fun BuangSampah() {
 }
 
 @Composable
-fun HomePage(){
+fun HomePage(navController: NavHostController) {
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
             .verticalScroll(scrollState)
             .fillMaxWidth()
+            .background(color = Color.White)
 //            .padding(10.dp),
     )
     {
@@ -147,7 +150,7 @@ fun HomePage(){
 
         ) {
             LogoHome()
-            Text("Clear GO", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+            Text("Clear GO", fontSize = 22.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.width(130.dp))
             Row {
                 LogoAchieve()
@@ -186,7 +189,7 @@ fun HomePage(){
                 }
                 Spacer(modifier = Modifier.height(8.dp))
                 Button(
-                    onClick = { },
+                    onClick = {navController.navigate("Menu")},
                     colors = ButtonDefaults.buttonColors(containerColor = Darkgreen),
                     shape = RoundedCornerShape(10.dp),
                     modifier = Modifier
@@ -366,10 +369,10 @@ fun HomePage(){
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(Color(0xFF00C853), shape = RoundedCornerShape(8.dp))
-                    .padding(top = 10.dp, start = 10.dp, end = 10.dp)
+                    .padding(top = 10.dp, start = 10.dp)
             ) {
                 Row(
-
+                    modifier = Modifier.padding(0.dp)
                 ) {
                     Column(
                         horizontalAlignment = Alignment.Start,
@@ -456,7 +459,8 @@ fun HomePage(){
 @Preview(showBackground = true)
 @Composable
 fun PreviewHomepage(){
-    HomePage()
+    val navController = rememberNavController()
+    HomePage(navController)
 }
 
 

@@ -18,7 +18,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -44,19 +43,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTextField(
+fun CustomtextField(
     label: String,
     stateText: String,
     onChange: (String) -> Unit,
-    isPassword: Boolean = false
-) {
+    isPassword: Boolean = false)
+{
     OutlinedTextField(
         value = stateText,
         onValueChange = onChange,
@@ -67,27 +64,24 @@ fun CustomTextField(
     )
 }
 
-
-
 @Composable
-fun ImageWithClip() {
+fun ImageLogin() {
     Image(
         painter = painterResource(id = R.drawable.logo),
         contentDescription = "Logo Apps",
         modifier = Modifier
             .width(100.dp)
             .height(100.dp)
+            .background(color = Color.White)
             .clip(CircleShape),
         contentScale = ContentScale.FillHeight
     )
 }
+
 @Composable
- fun RegisterPage(navController: NavController) {
+fun LoginPage(navController: NavController){
     var Fullname by remember { mutableStateOf("") }
     var Email by remember { mutableStateOf("") }
-    var Password by remember { mutableStateOf("") }
-    var checked by remember { mutableStateOf( true) }
-
 
     Column(
         modifier = Modifier
@@ -99,14 +93,14 @@ fun ImageWithClip() {
     ) {
         // Image with clip
         ImageWithClip()
-        Text(text = "Create New Account", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+        Text(text = "Login CleanGo", fontSize = 20.sp, fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(20.dp))
 
 
         // Username TextField
         CustomTextField(
-            label = "Full Name",
+            label = "Username",
             stateText = Fullname,
             onChange = { Fullname = it },
         )
@@ -114,47 +108,24 @@ fun ImageWithClip() {
         Spacer(modifier = Modifier.height(16.dp))
 
         // Password TextField
-        CustomTextField(
-            label = "Email",
+        CustomtextField(
+            label = "Password",
             stateText = Email,
             onChange = { Email = it },
 //            isPassword = true
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Username TextField
-        CustomTextField(
-            label = "Password",
-            stateText = Password,
-            onChange = { Password = it },
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start,
-            modifier = Modifier.padding(end = 158.dp)
-        ) {
-            Checkbox(
-                checked = checked,
-                onCheckedChange = { checked = it }
-            )
-
-            Text(
-                "Accept Term and Condition"
-            )
-        }
         Button(
             modifier = Modifier
                 .padding(top = 10.dp)
                 .fillMaxWidth(),
-            onClick = {
-                navController.navigate("LoginPage")
-            },
+            onClick = {navController.navigate("HomePage")},
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
         ) {
             Text(
-                "Create New Account",
+                "Login",
                 modifier = Modifier.padding(10.dp),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
@@ -173,29 +144,28 @@ fun ImageWithClip() {
                     textDecoration = TextDecoration.Underline
                 )
             ) {
-                append("Login")
+                append("Register")
             }
         }
 
         ClickableText(
             text = loginText,
-            modifier = Modifier.padding(end = 190.dp),
+            modifier = Modifier.padding(end = 170.dp),
             onClick = { offset ->
-                navController.navigate("LoginPage")
+                navController.navigate("RegisterPage")
                 // Misalnya, navigasi ke halaman login
-                if (offset >= loginText.length - "LoginPage".length) {
-
+                if (offset >= loginText.length - "RegisterPage".length) {
+                    // Panggil fungsi navigasi atau aksi lain di sini
                 }
             }
         )
 
     }
-
- }
+}
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewRegister() {
-    val navController   = rememberNavController()
-    RegisterPage(navController)
+fun PreviewLoginPage(){
+    val  navController = rememberNavController()
+    LoginPage(navController)
 }
