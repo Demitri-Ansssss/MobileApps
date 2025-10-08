@@ -1,5 +1,7 @@
 package com.example.myapplicationtest1
 
+import android.content.Context
+import android.telecom.Call
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +22,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -31,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -42,8 +46,10 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 
 
@@ -78,10 +84,24 @@ fun ImageLogin() {
     )
 }
 
+data class Users(
+    val Username: String,
+    val Password: String
+)
+ val users = listOf(
+     Users(Username = "ansori", Password = "1234"),
+     Users(Username = "sonya", Password = "1234"),
+     Users(Username = "gea", Password = "1234"),
+
+ )
+
 @Composable
 fun LoginPage(navController: NavController){
-    var Fullname by remember { mutableStateOf("") }
-    var Email by remember { mutableStateOf("") }
+    var Username by remember { mutableStateOf("") }
+    var Password by remember { mutableStateOf("") }
+    var loginResult by remember { mutableStateOf("") }
+    var errormsg by remember { mutableStateOf("") }
+    
 
     Column(
         modifier = Modifier
@@ -98,21 +118,24 @@ fun LoginPage(navController: NavController){
         Spacer(modifier = Modifier.height(20.dp))
 
 
-        // Username TextField
-        CustomTextField(
-            label = "Username",
-            stateText = Fullname,
-            onChange = { Fullname = it },
+        // NamaTextField
+        TextField(
+            value = Username,
+            onValueChange = {Username = it},
+            label = {Text("Username")},
+            modifier = Modifier.fillMaxWidth()
+
         )
 
         Spacer(modifier = Modifier.height(16.dp))
 
         // Password TextField
-        CustomtextField(
-            label = "Password",
-            stateText = Email,
-            onChange = { Email = it },
-//            isPassword = true
+        TextField(
+            value = Password,
+            onValueChange = {Password = it},
+            label = {Text("Password")},
+            modifier = Modifier.fillMaxWidth()
+
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -120,7 +143,14 @@ fun LoginPage(navController: NavController){
             modifier = Modifier
                 .padding(top = 10.dp)
                 .fillMaxWidth(),
-            onClick = {navController.navigate("HomePage")},
+            onClick = {
+                    val users = users.find { it.Username == Username && it.Password == Password}
+                if (users != null){
+                    navController.navigate("HomePage")
+                }else{
+                    errormsg = "Login Gagal"
+                }
+            },
             shape = RoundedCornerShape(10.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
         ) {
@@ -133,9 +163,10 @@ fun LoginPage(navController: NavController){
             )
         }
         Spacer(modifier = Modifier.height(16.dp))
+        Text(text = loginResult)
 
-        val loginText = buildAnnotatedString {
-            append("Already have an account? ")
+        val RegisterText = buildAnnotatedString {
+            append("Do you already have an account? ")
 
             withStyle(
                 style = SpanStyle(
@@ -146,19 +177,20 @@ fun LoginPage(navController: NavController){
             ) {
                 append("Register")
             }
-        }
 
+        }
         ClickableText(
-            text = loginText,
-            modifier = Modifier.padding(end = 170.dp),
+            text = RegisterText,
+            modifier = Modifier.padding(end = 100.dp),
             onClick = { offset ->
                 navController.navigate("RegisterPage")
                 // Misalnya, navigasi ke halaman login
-                if (offset >= loginText.length - "RegisterPage".length) {
-                    // Panggil fungsi navigasi atau aksi lain di sini
+                if (offset >= RegisterText.length - "RegisterPage".length) {
+
                 }
             }
         )
+
 
     }
 }

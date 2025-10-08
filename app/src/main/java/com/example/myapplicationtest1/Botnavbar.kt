@@ -9,13 +9,20 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.myapplicationtest1.ui.theme.Darkgreen
 
 @Composable
@@ -56,9 +63,9 @@ fun Accountlogo(){
 }
 
 @Composable
-fun BotNavbar(){
+fun BotNavbar(navController: NavController?){
     Row (
-        modifier = Modifier.fillMaxWidth().background(Darkgreen).padding(10.dp),
+        modifier = Modifier.fillMaxWidth().background(Darkgreen) .wrapContentHeight(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
@@ -66,29 +73,66 @@ fun BotNavbar(){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Orderlogo()
-            Text("Order")
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
+            ) {
+                Column {
+                    Orderlogo()
+                    Text("Order")
+                }
+                }
+
         }
         Column (
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Homelogo()
-            Text("Home")
+            Button(
+                onClick = {navController?.navigate("homepage")},
+                colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
+            ) {
+                Column {
+                    Homelogo()
+                    Text("Home")
+                }}
         }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Historylogo()
-            Text("History")
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
+            ) {
+                Column {
+                    Historylogo()
+                    Text("History")
+                }
+            }
+
         }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Accountlogo()
-            Text("Account")
+            Button(
+                onClick = {},
+                colors = ButtonDefaults.buttonColors(containerColor = Darkgreen)
+            ) {
+                Column {
+                    Accountlogo()
+                    Text("Account")
+                }
+            }
+
         }
     }
+}
+
+@Preview
+@Composable
+fun ShowBot(){
+    val navController = rememberNavController()
+    BotNavbar(navController)
 }

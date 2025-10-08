@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -58,45 +60,9 @@ fun ImgSampah(){
 }
 
 @Composable
-fun LogoHome() {
-    Image(
-        painter = painterResource(id = R.drawable.logo),
-        contentDescription = "Logo Apps",
-        modifier = Modifier
-            .width(80.dp)
-            .height(80.dp)
-            .clip(CircleShape),
-        contentScale = ContentScale.FillHeight
-    )
-}
-
-@Composable
-fun LogoAchieve() {
-    Image(
-        painter = painterResource(id = R.drawable.achieve),
-        contentDescription = "Logo Achieve",
-        modifier = Modifier
-            .width(40.dp)
-            .height(40.dp),
-        contentScale = ContentScale.FillHeight
-
-    )
-}
-@Composable
-fun LogoNotify() {
-    Image(
-        painter = painterResource(id = R.drawable.notif),
-        contentDescription = "Logo Notify",
-        modifier = Modifier
-            .width(40.dp)
-            .height(40.dp),
-        contentScale = ContentScale.FillHeight
-    )
-}
-@Composable
 fun Logotrash(){
     Image(
-        painter = painterResource(id = R.drawable.trash),
+        painter = painterResource(id = R.drawable.trash2),
         contentDescription = "Logo trash",
         modifier = Modifier
             .width(120.dp)
@@ -138,37 +104,20 @@ fun HomePage(navController: NavHostController) {
             .verticalScroll(scrollState)
             .fillMaxWidth()
             .background(color = Color.White)
-//            .padding(10.dp),
+
     )
     {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-
-        ) {
-            LogoHome()
-            Text("Clear GO", fontSize = 22.sp, fontWeight = FontWeight.Bold)
-            Spacer(modifier = Modifier.width(130.dp))
-            Row {
-                LogoAchieve()
-                LogoNotify()
-            }
-        }
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-
                 .border(
                     BorderStroke(1.dp, Color.Black),
                     shape = RoundedCornerShape(10.dp),
                     
                 ),
             shape = RoundedCornerShape(10.dp),
-            colors = CardDefaults.cardColors(Color(0xFFf5f5f5)),
+            colors = CardDefaults.cardColors(Color.White),
             elevation = CardDefaults.cardElevation(10.dp)
         ) {
             Column(
@@ -303,6 +252,9 @@ fun HomePage(navController: NavHostController) {
                         Box(
                             modifier = Modifier
                                 .size(50.dp)
+                                .clickable{
+                                    navController.navigate("Deteksi")
+                                }
                                 .background(color = Color.White, shape = CircleShape),
                             contentAlignment = Alignment.Center
                         ) {
@@ -310,32 +262,13 @@ fun HomePage(navController: NavHostController) {
                         }
                         Spacer(modifier = Modifier.width(10.dp))
                         Text(
-                            text = "Points",
+                            text = "Deteksi",
                             color = Color.White,
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.End,
-                        modifier = Modifier.padding(10.dp)
-                    ) {
-                        Text(
-                            text = "O",
-                            color = Color.White,
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Normal,
-                            modifier = Modifier.padding(start = 7.dp)
-                        )
-                        Spacer(modifier = Modifier.width(27.dp))
-                        Text(
-                            text = "Points",
-                            color = Color.White,
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.Normal
-                        )
-                    }
+
                 }
             }
         }
@@ -345,7 +278,7 @@ fun HomePage(navController: NavHostController) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 10.dp, end = 10.dp)
+                .padding(start = 10.dp, end = 10.dp).wrapContentHeight()
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(start = 8.dp, end = 8.dp),
@@ -453,7 +386,6 @@ fun HomePage(navController: NavHostController) {
                 ImgSampah()
             }
         }
-        BotNavbar()
     }
 }
 @Preview(showBackground = true)
